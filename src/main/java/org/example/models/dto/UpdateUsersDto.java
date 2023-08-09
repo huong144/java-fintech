@@ -1,32 +1,22 @@
-package org.example.models.entity;
+package org.example.models.dto;
 
-import javax.persistence.*;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.Id;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
-@Entity
-@Table(name = "users")
-public class UsersEntity {
-
-    public UsersEntity() {
-        super();
-    }
-
+@Data
+@Component()
+public class UpdateUsersDto {
     @Id
     private int id;
-    private int roleId;
-    private String username;
-    private String password;
     private String fullName;
-    private String phoneNumber;
     private String address;
     private Date dateOfBirth;
     private String sex;
     private String avatar;
     private String email;
-    private String status;
-    private int isCustomer;
     private String identityDocumentType;
     private String identityNumber;
 
@@ -34,25 +24,10 @@ public class UsersEntity {
         return id;
     }
 
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public String getFullName() {
         return fullName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
 
     public String getAddress() {
         return address;
@@ -73,14 +48,6 @@ public class UsersEntity {
     public String getEmail() {
         return email;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public int getIsCustomer() {
-        return isCustomer;
-    }
     public String getIdentityDocumentType() {
         return identityDocumentType;
     }
@@ -92,24 +59,8 @@ public class UsersEntity {
         this.id = id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public void setAddress(String address) {
@@ -130,14 +81,6 @@ public class UsersEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setIsCustomer(int isCustomer) {
-        this.isCustomer = isCustomer;
     }
 
     public void setIdentityDocumentType(String identityDocumentType) {

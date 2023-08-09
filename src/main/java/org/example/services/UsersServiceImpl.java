@@ -27,7 +27,6 @@ public class UsersServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UsersEntity user = usersRepository.findByUsername(s);
         if (user == null) {
-            System.out.println("111111111111111111111");
             throw new UsernameNotFoundException("User not found");
         }
         List<RoleEntity> roles = roleRepository.findAll();
