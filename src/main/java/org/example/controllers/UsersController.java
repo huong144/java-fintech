@@ -2,11 +2,14 @@ package org.example.controllers;
 
 import org.example.config.JwtTokenProvider;
 import org.example.models.dto.CreateUsersDto;
+import org.example.models.dto.UpdateUsersDto;
 import org.example.models.entity.UsersEntity;
+import org.example.response.BaseResponse;
 import org.example.response.LoginResponse;
 import org.example.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,8 +40,8 @@ public class UsersController {
         return usersService.findAllUsers();
     }
 
-    @PostMapping
-    public UsersEntity createUser(@RequestBody CreateUsersDto createUserDto){
+    @PostMapping("/register")
+    public ResponseEntity<BaseResponse<UsersEntity>> createUser(@RequestBody CreateUsersDto createUserDto){
         return usersService.createUser(createUserDto);
     }
 
@@ -58,4 +61,21 @@ public class UsersController {
        String jwt = tokenProvider.generateToken(createUsersDto.getUsername());
         return new LoginResponse(jwt);
     }
+
+    @PutMapping
+    public ResponseEntity<BaseResponse<UsersEntity>> updateUserInfo(@RequestBody UpdateUsersDto updateUsersDto){
+        return usersService.updateUserInfo(updateUsersDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
+        usersService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<BaseResponse<UsersEntity>> findUserById(@RequestParam int id){
+        return usersService.findUserById(id);
+    }
+
 }

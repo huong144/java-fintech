@@ -18,27 +18,28 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**");// Tắt xác thực và phân quyền cho tất cả các yêu cầu
     }
 
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     protected void configure(HttpSecurity http, AuthenticationManagerBuilder auth) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll();// Cho phép tất cả các yêu cầu truy cập mà không cần xác thực
-
+                .anyRequest().permitAll();
+//        .antMatchers("/users/login","/users/register").permitAll();// Cho phép tất cả các yêu cầu truy cập mà không cần xác thực
+//                .anyRequest().authenticated();
         http.formLogin().disable();
 
        auth.authenticationProvider(authenticationProvider());
 
 
     }
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         // Tạo một AuthenticationProvider để thực hiện xác thực người dùng
